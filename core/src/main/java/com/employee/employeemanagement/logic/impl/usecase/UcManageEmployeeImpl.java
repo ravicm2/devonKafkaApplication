@@ -61,20 +61,13 @@ public class UcManageEmployeeImpl extends AbstractEmployeeUc implements UcManage
   @Override
   public void sendEmployeeToKafka(EmployeeEto message) {
 
-    System.out.println("inside 999999999");
-
-    // this.messageConverter = new MessageConverterImpl();
-
     ProducerRecord<Object, Object> producerRecord = new ProducerRecord<>("sample-employee-topic", 0, "employee",
         message);
 
     setHeaders(producerRecord);
 
-    System.out.println("before sending");
-
     getMessageSender().sendMessage(producerRecord, getMessageConverter());
 
-    System.out.println("After message sent");
   }
 
   private void setHeaders(ProducerRecord<Object, Object> producerRecord) {
@@ -87,7 +80,6 @@ public class UcManageEmployeeImpl extends AbstractEmployeeUc implements UcManage
 
   private void setRetryHeaders(ProducerRecord<Object, Object> producerRecord) {
 
-    // this.messageRetryContext = new MessageRetryContext();
     // value for the headers.
     getMessageRetryContext().setRetryCount(2);
     getMessageRetryContext().setRetryNext(Instant.parse("2020-03-11T10:37:30.00Z"));
@@ -95,7 +87,7 @@ public class UcManageEmployeeImpl extends AbstractEmployeeUc implements UcManage
     getMessageRetryContext().setRetryUntil(Instant.parse("2020-03-31T10:37:30.00Z"));
     getMessageRetryContext().setRetryState(RetryState.PENDING);
 
-    // Setting retry headers.
+    // injecting retry headers.
     getMessageRetryContext().injectInto(producerRecord);
   }
 }

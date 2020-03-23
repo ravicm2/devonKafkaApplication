@@ -22,10 +22,9 @@ public class MessageConverterImpl implements MessageConverter {
   @Override
   public <T> T convertMessage(T message) {
 
-    ObjectMapper objectMapper = new ObjectMapper();
     String value = null;
     try {
-      value = objectMapper.writer().writeValueAsString(message);
+      value = new ObjectMapper().writer().writeValueAsString(message);
 
     } catch (JsonProcessingException e) {
       LOG.error(e.getMessage());

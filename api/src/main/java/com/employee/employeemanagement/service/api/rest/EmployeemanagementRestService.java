@@ -72,8 +72,4 @@ public interface EmployeemanagementRestService {
   @Path("/employee/add")
   public void sendEmployeeToKafka(EmployeeEto message);
 
-  @GET
-  @Path("/employee/get")
-  public String hello();
-
 }

@@ -5,6 +5,8 @@ import javax.inject.Named;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 
 import com.devonfw.module.kafka.common.messaging.api.client.parser.MessageParser;
@@ -17,6 +19,8 @@ import com.devonfw.module.kafka.common.messaging.retry.api.client.MessageRetryOp
  */
 @Named
 public class SaveEmployeeConsumer {
+
+  private static final Logger LOG = LoggerFactory.getLogger(SaveEmployeeConsumer.class);
 
   @Inject
   private MessageParser messageParser;
@@ -59,6 +63,8 @@ public class SaveEmployeeConsumer {
       this.messageRetryOperations.processMessageWithRetry(producerRecord, this.messageProcessor);
 
       System.out.println("After processing");
+    } else {
+      LOG.error("No message present for given topic and groupId");
     }
   }
 
