@@ -40,8 +40,10 @@ public class SaveEmployeMessageProcessor implements MessageProcessor {
       convertedValue = new ObjectMapper().readValue(message.value().toString(), EmployeeEto.class);
     } catch (IOException e) {
       // TODO Auto-generated catch block
+      // TODO SSp: Proper error handling
       e.printStackTrace();
     }
+    // TODO SSp: move inside try/catch
     this.employeemanagement.saveEmployee(convertedValue);
   }
 

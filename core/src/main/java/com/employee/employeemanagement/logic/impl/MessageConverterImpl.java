@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ch.qos.logback.classic.Logger;
 
 /**
- *
+ * TODO SSP: Can be removed
  */
 @Named
 public class MessageConverterImpl implements MessageConverter {
