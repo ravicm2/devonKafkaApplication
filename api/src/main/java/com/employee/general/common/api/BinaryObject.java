@@ -1,7 +1,7 @@
 package com.employee.general.common.api;
 
 /**
- * This is the interface for a {@link BinaryObject} of the samplekafkaapplication.
+ * TODO SSP: Please remove binaryobject This is the interface for a {@link BinaryObject} of the samplekafkaapplication.
  */
 public interface BinaryObject extends ApplicationEntity {
 
