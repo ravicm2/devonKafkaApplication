@@ -46,7 +46,6 @@ public class EmployeemanagementRestServiceImpl implements EmployeemanagementRest
   @Override
   public void sendEmployeeToKafka(EmployeeEto message) {
 
-    System.out.println("Inside Service Impl");
     this.employeemanagement.sendEmployeeToKafka(message);
 
   }

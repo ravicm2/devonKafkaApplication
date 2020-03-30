@@ -3,7 +3,6 @@ package com.employee.employeemanagement.logic.base.usecase;
 import javax.inject.Inject;
 
 import com.devonfw.module.kafka.common.messaging.api.client.MessageSender;
-import com.devonfw.module.kafka.common.messaging.api.client.converter.MessageConverter;
 import com.devonfw.module.kafka.common.messaging.retry.impl.MessageRetryContext;
 import com.employee.employeemanagement.dataaccess.api.repo.EmployeeRepository;
 import com.employee.general.logic.base.AbstractUc;
@@ -29,9 +28,6 @@ public class AbstractEmployeeUc extends AbstractUc {
   private MessageSender messageSender;
 
   @Inject
-  private MessageConverter messageConverter;
-
-  @Inject
   private MessageRetryContext messageRetryContext;
 
   /**
@@ -50,14 +46,6 @@ public class AbstractEmployeeUc extends AbstractUc {
   public MessageSender getMessageSender() {
 
     return this.messageSender;
-  }
-
-  /**
-   * @return messageConverter
-   */
-  public MessageConverter getMessageConverter() {
-
-    return this.messageConverter;
   }
 
   /**

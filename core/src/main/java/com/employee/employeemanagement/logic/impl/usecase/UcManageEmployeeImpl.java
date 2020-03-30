@@ -16,6 +16,7 @@ import com.employee.employeemanagement.dataaccess.api.EmployeeEntity;
 import com.employee.employeemanagement.logic.api.to.EmployeeEto;
 import com.employee.employeemanagement.logic.api.usecase.UcManageEmployee;
 import com.employee.employeemanagement.logic.base.usecase.AbstractEmployeeUc;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Use case implementation for modifying and deleting Employees
@@ -61,12 +62,20 @@ public class UcManageEmployeeImpl extends AbstractEmployeeUc implements UcManage
   @Override
   public void sendEmployeeToKafka(EmployeeEto message) {
 
-    ProducerRecord<Object, Object> producerRecord = new ProducerRecord<>("sample-employee-topic", 0, "employee",
-        message);
+    try {
 
-    setHeaders(producerRecord);
+      String convertedMessage = new ObjectMapper().writer().writeValueAsString(message);
 
-    getMessageSender().sendMessage(producerRecord, getMessageConverter());
+      ProducerRecord<Object, Object> producerRecord = new ProducerRecord<>("sample-employee-topic", 0, "employee",
+          convertedMessage);
+
+      setHeaders(producerRecord);
+
+      getMessageSender().sendMessage(producerRecord);
+
+    } catch (Exception e) {
+      LOG.error("Error while sending message: The error is {}", e);
+    }
 
   }
 
