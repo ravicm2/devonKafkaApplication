@@ -15,8 +15,16 @@ import com.employee.employeemanagement.service.api.rest.EmployeemanagementRestSe
  *
  */
 @SpringBootTest(classes = SpringBootApp.class)
+// TODO SSp: Since the class tests the kafka service please rename to
+// com.employee.general.service.impl.kafka.EmployeeManagementKafkaServiceImplTest
+
+// TODO SSp: please remove injectied RestService instance, we want to create a subsystem test here which uses the
+// "real" interfaces. so Please inherit from RestServiceTest and use getServiceClientFactory to actually call the rest
+// service via
+// an rest client
 public class EmployeeManagementRestServiceImplTest extends SystemDbTest {
 
+  // TODO SSp: Please remove (see above)
   @Inject
   private EmployeemanagementRestService employeemanagementRestService;
 
@@ -24,6 +32,7 @@ public class EmployeeManagementRestServiceImplTest extends SystemDbTest {
    *
    */
   @Test
+  // TODO SSp: Please rename to saveEmployeeViaKafkaService
   public void shouldSendEmployeeToKafkaAndSaveInDbWithListener() {
 
     // Arrange
@@ -34,6 +43,19 @@ public class EmployeeManagementRestServiceImplTest extends SystemDbTest {
     employee.setValidEmployee(false);
 
     // Act
+    // TODO SSp: Sorry, obviously I was not clear what the test should do. The test should directly send a new employee
+    // to save to the application.
+    // It should then use the rest service to verify that the employee has been saved.
+    // the test should work like the following
+
+    // Act
+
+    // kafkaTemplate.sendMessage(employeeEto);
+
+    // Assert
+    // EmployeeSearchCriteriaTo employeCriteria = new EmployeeSearchCriteriaTo();
+    // employeCriteria.setName("Ashwin");
+    // Awaitility.await()....until(() -> this.employeemgmtService.findEmployee(employeCriteria) != null);
     this.employeemanagementRestService.sendEmployeeToKafka(employee);
 
     Awaitility.await()
