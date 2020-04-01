@@ -34,6 +34,10 @@ public class SaveEmployeMessageProcessor implements MessageProcessor {
 
     try {
       convertAndSaveEmployee(message);
+      // TODO SSp: In real world one have to decide for which errors a retry make sense and for which not
+      // We do not have to stress this very much for the example, but suggestion would be to retry for errors during
+      // json parsing and nothing else
+      // so we catch JsonParseException and JsonMappingException here and nothing else.
     } catch (IOException e) {
       LOG.error("Error while processing message. The error thrown is {}", e);
     }
