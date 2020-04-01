@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import com.employee.employeemanagement.logic.api.Employeemanagement;
 import com.employee.employeemanagement.logic.api.to.EmployeeEto;
 import com.employee.employeemanagement.logic.api.to.EmployeeSearchCriteriaTo;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * The service interface for REST calls in order to execute the logic of component {@link Employeemanagement}.
@@ -62,14 +61,5 @@ public interface EmployeemanagementRestService {
   @Path("/employee/search")
   @POST
   public Page<EmployeeEto> findEmployees(EmployeeSearchCriteriaTo searchCriteriaTo);
-
-  /**
-   * @param message
-   * @return
-   * @throws JsonProcessingException
-   */
-  @POST
-  @Path("/employee/add")
-  public void sendEmployeeToKafka(EmployeeEto message);
 
 }

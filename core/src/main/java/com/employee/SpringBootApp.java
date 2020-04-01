@@ -14,8 +14,6 @@ import com.devonfw.module.kafka.common.messaging.api.config.MessageSenderConfig;
 import com.devonfw.module.kafka.common.messaging.retry.api.config.MessageDefaultRetryConfig;
 import com.devonfw.module.kafka.common.messaging.trace.api.config.TraceConfig;
 
-// TODO SSP: Please provide a test which enques a message, waits and tries to read it via the rest service
-// For waiting please use the library awaitility
 /**
  * Main entry point of this {@link SpringBootApplication}. Simply run this class to start this app.
  */

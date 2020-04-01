@@ -50,11 +50,4 @@ public class EmployeemanagementImpl extends AbstractComponentFacade implements E
     return this.ucManageEmployee.deleteEmployee(id);
   }
 
-  @Override
-  // TODO SSp: Please remove (see shouldSendEmployeeToKafkaAndSaveInDbWithListener)
-  public void sendEmployeeToKafka(EmployeeEto message) {
-
-    this.ucManageEmployee.sendEmployeeToKafka(message);
-  }
-
 }

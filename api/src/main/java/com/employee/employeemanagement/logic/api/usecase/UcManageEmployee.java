@@ -23,9 +23,4 @@ public interface UcManageEmployee {
    */
   EmployeeEto saveEmployee(EmployeeEto employee);
 
-  /**
-   * @param message
-   */
-  void sendEmployeeToKafka(EmployeeEto message);
-
 }

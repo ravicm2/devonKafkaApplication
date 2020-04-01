@@ -11,8 +11,6 @@ import org.slf4j.LoggerFactory;
 import com.devonfw.module.kafka.common.messaging.retry.api.client.MessageProcessor;
 import com.employee.employeemanagement.logic.api.Employeemanagement;
 import com.employee.employeemanagement.logic.api.to.EmployeeEto;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.qos.logback.classic.Logger;
@@ -38,13 +36,14 @@ public class SaveEmployeMessageProcessor implements MessageProcessor {
       // We do not have to stress this very much for the example, but suggestion would be to retry for errors during
       // json parsing and nothing else
       // so we catch JsonParseException and JsonMappingException here and nothing else.
+
+      // Reply: ObjectMapper().readValue() expects IOException to be handled .
     } catch (IOException e) {
       LOG.error("Error while processing message. The error thrown is {}", e);
     }
   }
 
-  private void convertAndSaveEmployee(ConsumerRecord<Object, Object> message)
-      throws IOException, JsonParseException, JsonMappingException {
+  private void convertAndSaveEmployee(ConsumerRecord<Object, Object> message) throws IOException {
 
     EmployeeEto convertedValue = new ObjectMapper().readValue(message.value().toString(), EmployeeEto.class);
     this.employeemanagement.saveEmployee(convertedValue);

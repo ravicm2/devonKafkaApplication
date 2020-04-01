@@ -90,7 +90,9 @@ public abstract class BaseWebSecurityConfig extends WebSecurityConfigurerAdapter
     //
     // // register login and logout filter that handles rest logins
     // .addFilterAfter(getSimpleRestAuthenticationFilter(), BasicAuthenticationFilter.class)
-    // .addFilterAfter(getSimpleRestLogoutFilter(), LogoutFilter.class);
+    // .addFilterAfter(getSimpleRestLogoutFilter(), LogoutFilter.class)
+    // // .headers().frameOptions().disable()
+    // ;
 
     http
         //

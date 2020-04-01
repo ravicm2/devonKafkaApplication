@@ -43,11 +43,4 @@ public class EmployeemanagementRestServiceImpl implements EmployeemanagementRest
     return this.employeemanagement.findEmployees(searchCriteriaTo);
   }
 
-  @Override
-  public void sendEmployeeToKafka(EmployeeEto message) {
-
-    this.employeemanagement.sendEmployeeToKafka(message);
-
-  }
-
 }
