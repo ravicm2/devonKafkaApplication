@@ -59,7 +59,7 @@ public class EmployeeManagementKafkaServiceImplTest extends RestServiceTest {
     }
 
     this.employeemanagementRestService = getServiceClientFactory().create(EmployeemanagementRestService.class,
-        new ServiceClientConfigBuilder().host("localhost").authBasic().userLogin("waiter").userPassword("waiter")
+        new ServiceClientConfigBuilder().host("localhost").authBasic().userLogin("manager").userPassword("manager")
             .buildMap());
 
     super.doSetUp();

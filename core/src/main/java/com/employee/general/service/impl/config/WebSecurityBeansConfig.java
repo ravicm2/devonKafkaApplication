@@ -7,11 +7,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
-import com.employee.general.logic.impl.config.DefaultRolesPrefixPostProcessor;
 import com.devonfw.module.security.common.api.accesscontrol.AccessControlProvider;
 import com.devonfw.module.security.common.base.accesscontrol.AccessControlSchemaProvider;
 import com.devonfw.module.security.common.impl.accesscontrol.AccessControlProviderImpl;
 import com.devonfw.module.security.common.impl.accesscontrol.AccessControlSchemaProviderImpl;
+import com.employee.general.logic.impl.config.DefaultRolesPrefixPostProcessor;
 
 /**
  * This configuration class provides factory methods for several Spring security related beans.
