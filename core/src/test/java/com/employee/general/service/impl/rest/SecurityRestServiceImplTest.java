@@ -1,6 +1,7 @@
 package com.employee.general.service.impl.rest;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -9,14 +10,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import com.devonfw.module.service.common.api.client.config.ServiceClientConfigBuilder;
-
 import com.employee.general.common.api.to.UserProfileTo;
 import com.employee.general.service.api.rest.SecurityRestService;
 import com.employee.general.service.base.test.RestServiceTest;
@@ -68,6 +65,7 @@ public class SecurityRestServiceImplTest extends RestServiceTest {
    */
   @Test
   public void testGetCurrentUser() {
+
     String login = "waiter";
     String password = "waiter";
     SecurityRestService securityService = getServiceClientFactory().create(SecurityRestService.class,
@@ -91,7 +89,8 @@ public class SecurityRestServiceImplTest extends RestServiceTest {
     HttpEntity<String> postRequest = new HttpEntity<>(
         "{\"j_username\": \"" + userName + "\", \"j_password\": \"" + tmpPassword + "\"}", new HttpHeaders());
 
-    ResponseEntity<String> postResponse = new RestTemplate().exchange(tmpUrl, HttpMethod.POST, postRequest, String.class);
+    ResponseEntity<String> postResponse = new RestTemplate().exchange(tmpUrl, HttpMethod.POST, postRequest,
+        String.class);
     return postResponse;
   }
 

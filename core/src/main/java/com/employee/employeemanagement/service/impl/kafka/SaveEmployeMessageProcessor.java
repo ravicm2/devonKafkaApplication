@@ -1,7 +1,5 @@
 package com.employee.employeemanagement.service.impl.kafka;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -30,23 +28,27 @@ public class SaveEmployeMessageProcessor implements MessageProcessor {
   @Override
   public void processMessage(ConsumerRecord<Object, Object> message) {
 
+    // TODO SSp: In real world one have to decide for which errors a retry make sense and for which not
+    // We do not have to stress this very much for the example, but suggestion would be to retry for errors during
+    // json parsing and nothing else
+    // so we catch JsonParseException and JsonMappingException here and nothing else.
+
+    // Reply: ObjectMapper().readValue() expects IOException to be handled .
+
+    // Reply SSp: Ok the problem is, that if catch and consume IOException here, IOExceptions from the logic layer
+    // will also not go into the retry logic.
+    // I proposed a good change to better handle this below.
+
+    EmployeeEto convertedValue = null;
     try {
-      convertAndSaveEmployee(message);
-      // TODO SSp: In real world one have to decide for which errors a retry make sense and for which not
-      // We do not have to stress this very much for the example, but suggestion would be to retry for errors during
-      // json parsing and nothing else
-      // so we catch JsonParseException and JsonMappingException here and nothing else.
-
-      // Reply: ObjectMapper().readValue() expects IOException to be handled .
-    } catch (IOException e) {
-      LOG.error("Error while processing message. The error thrown is {}", e);
+      convertedValue = new ObjectMapper().readValue(message.value().toString(), EmployeeEto.class);
+    } catch (Exception e) {
+      // Since we catch all Exceptions here no retries will be done for errors during conversion.
+      LOG.warn("Message conversion failed. Message will be ignored.", e);
     }
-  }
-
-  private void convertAndSaveEmployee(ConsumerRecord<Object, Object> message) throws IOException {
-
-    EmployeeEto convertedValue = new ObjectMapper().readValue(message.value().toString(), EmployeeEto.class);
-    this.employeemanagement.saveEmployee(convertedValue);
+    if (convertedValue != null) {
+      this.employeemanagement.saveEmployee(convertedValue);
+    }
   }
 
 }
